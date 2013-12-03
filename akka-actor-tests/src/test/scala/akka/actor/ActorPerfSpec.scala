@@ -67,12 +67,9 @@ class ActorPerfSpec extends AkkaSpec("akka.actor.serialize-messages = off") with
 
   import ActorPerfSpec._
 
-  def getIntProperty(name: String, default: Int): Int =
-    Try { System.getProperty(name, default.toString).toInt } getOrElse default
-
-  val warmUp: Int = getIntProperty("akka.test.actor.ActorPerfSpec.warmUp", 50000)
-  val numberOfActors: Int = getIntProperty("akka.test.actor.ActorPerfSpec.numberOfActors", 100000)
-  val numberOfRepeats: Int = getIntProperty("akka.test.actor.ActorPerfSpec.numberOfRepeats", 2)
+  val warmUp: Int = Integer.getInteger("akka.test.actor.ActorPerfSpec.warmUp", 50000)
+  val numberOfActors: Int = Integer.getInteger("akka.test.actor.ActorPerfSpec.numberOfActors", 100000)
+  val numberOfRepeats: Int = Integer.getInteger("akka.test.actor.ActorPerfSpec.numberOfRepeats", 2)
 
   def testActorCreation(name: String, propsCreator: () ⇒ Props): Unit = {
     val actorName = name.replaceAll("[ #\\?/!\\*%\\(\\)\\[\\]]", "_")
